@@ -1,17 +1,22 @@
-﻿//窗口全屏
-while (true) {
-	try {
-		var w = screen.width, h = screen.height;  
-		window.resizeTo(w, h);  
-		window.moveTo((window.screen.width - w) / 2, (window.screen.height - h) / 2);
-		break;  
-	} catch (e) { continue; }  
+﻿var debug = false;
+if (!debug){
+	//窗口全屏
+	while (true) {
+		try {
+			w = screen.width, h = screen.height;  
+			window.resizeTo(w, h);  
+			window.moveTo((window.screen.width - w) / 2, (window.screen.height - h) / 2);
+			break;  
+		} catch (e) { continue; }  
+	}
+} else {
+	var w = 1300, h = 500;
 }
 
 var pgpath = document.location.href;
 var spath = pgpath.substr(0,pgpath.indexOf("/rs")).replace("file:///","") + "/img";
 var bgloaded=0, imageEs, total=0, phloaded=0, currentNumber=-1;
-var speed = 100;        //单位是毫秒,1秒=1000毫秒，1000/100=10，一秒钟展示10张照片
+var speed = 50;        //单位是毫秒,1秒=1000毫秒，1000/50=20，一秒钟展示20张照片
 var showed = [];
 var sh = null;
 var lhgif = null, lhswfdiv = null, gx = null;
@@ -27,35 +32,46 @@ function loadedbg(){
 
 //读取并加载照片
 function loadph(){
-	if(typeof(path) != "undefined" && path !=null && path.length > 0){
-		spath = path;
+	if (!debug) {
+		if(typeof(path) != "undefined" && path !=null && path.length > 0){
+			spath = path;
+		}
+		
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var fldr;
+		try{
+			fldr = fso.GetFolder(spath);
+		}catch(e){
+			alert("照片目录" + spath + "不存在");
+			window.close();
+		}
+		var fs = fldr.files;
+		total = fs.count;
+		if (total==0){
+			alert("目录" + spath + "里没有照片");
+			window.close();
+		}
+		var fc = new Enumerator(fs);
+		var name;
+		for(;!fc.atEnd();fc.moveNext()) {
+			name = fc.item().name;
+			appendPhoto(spath,name,name.split(".")[0]);
+		}
+	} else {
+		total = 48;
+		for(var i=1;i<=total;i++) {
+			appendPhoto("../img",i+".jpg",i);
+		}
 	}
-	
-	var fso = new ActiveXObject("Scripting.FileSystemObject");
-	var fldr;
-	try{
-		fldr = fso.GetFolder(spath);
-	}catch(e){
-		alert("照片目录" + spath + "不存在");
-		window.close();
-	}
-	var fs = fldr.files;
-	total = fs.count;
-	if (total==0){
-		alert("目录" + spath + "里没有照片");
-		window.close();
-	}
-	var fc = new Enumerator(fs);
-	var name;
-	for(;!fc.atEnd();fc.moveNext()) {
-		name = fc.item().name;
-		$("#imagesDiv").append('<div name="ph" class="hide">'+
-							   '	<img src="' + spath + '/' + name + '" class="img"/ onload="loadedph();">'+
-							   '	<div class="name">'+
-							   '		<br/><span name="namespan">' + name.split(".")[0] + '</span>'+
-							   '	</div>'+
-							   '</div>');
-	}
+}
+
+function appendPhoto(p,name,name2){
+	$("#imagesDiv").append('<div name="ph" class="hide">'+
+						   '	<img src="' + p + '/' + name + '" class="img"/ onload="loadedph();">'+
+						   '	<div class="name">'+
+						   '		<br/><span name="namespan">' + name2 + '</span>'+
+						   '	</div>'+
+						   '</div>');
 }
 
 //每张照片加载完成后会回调该方法
@@ -112,10 +128,20 @@ function start(){
 function stop(){
 	clearInterval(sh);
 	sh = null;
-	//
-	gx.html("恭喜<span style='color:red'>"+imageEs.eq(currentNumber).find("span[name='namespan']").html()+"</span>中奖");
+	gx.html("恭喜<span style='color:white'>"+imageEs.eq(currentNumber).find("span[name='namespan']").html()+"</span>中奖");
 	if (useFlash ){
-		lhswfdiv.html("<embed src='lh.swf' wmode='transparent' quality='high' width='" + h + "' height='" + h + "' type='application/x-shockwave-flash'></embed>");
+		lhswfdiv.append(
+			"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"+
+			"	codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0' width='"+h+"' height='"+h+"'>"+
+			"	<param name='movie' value='"+(withSound?"lh.swf":"lh2.swf")+"'>"+
+			"	<param name='wmode' value='transparent'>"+
+			"	<param name='quality' value='high'>"+
+			"	<param name='allowFullScreen' value='true'/>"+ 
+			"	<embed src='"+(withSound?"lh.swf":"lh2.swf")+"' wmode='transparent'"+
+			"		quality='high' pluginspage='http://www.macromedia.com/go/getflashplayer'"+
+			"		type='application/x-shockwave-flash' width='"+h+"' height='"+h+"'>"+
+			"	</embed>"+
+			"</object>");
 	} else {
 		lhgif.show();
 	}
