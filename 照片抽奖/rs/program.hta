@@ -1,0 +1,72 @@
+﻿<!--
+	author: Jimmy vinkii@foxmail.com
+	date: 2015-08-03
+-->
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+		<!--
+		<meta http-equiv='x-ua-compatible' content='IE=9'/>
+		-->
+		<title>抽奖</title>
+		<hta:application
+			id="oHTA"
+			applicationName="myApp"
+			border="none"
+			borderStyle="normal"
+			caption="no"
+			icon="cj.ico"
+			innerBorder="no"
+			maximizeButton="no"
+			minimizeButton="no"
+			selection="no"
+			showInTaskbar="yes"
+			singleInstance="yes"
+			sysMenu="no"
+			version="1.0″
+			windowState="maximize" />
+		<script type="text/javascript">
+			document.oncontextmenu=new Function("event.returnValue=false;");
+			document.onselectstart=new Function("event.returnValue=false;");
+		</script>
+		<script type="text/javascript" src="jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="../setting.js"></script>
+		<script type="text/javascript" src="core.js"></script>
+		<link rel="stylesheet" type="text/css" href="style.css">  
+	</head>
+
+	<body scroll="no" class="bgcolor">
+		<div id="background" class="bg">
+			<img id="bg" src="bg.jpg" width="100%" onload="loadedbg();"/>
+		</div>
+		<object id="zxh" type="application/x-oleobject" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11">    
+			<param name="Command" value="MINIMIZE">    	
+		</object>
+		<div class="btns">
+			<div title="最小化到任务栏" onclick="javascript:zxh.Click();" class="btn">最小化</div>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<div title="关闭" onclick="window.close();" class="btn">关闭</div>
+		</div>
+		<div id="gx" class="gx name"></div>
+		<div class="content">
+			<div id="imagesDiv" class="imagesDiv">
+				<div id="who">
+					<img src="who.jpg" class="img" onload="loadedbg();"/>
+					<div id="state" class="name"><br />正在加载照片，请稍候...<span id="percent"></span></div>
+				</div>
+			</div>
+		</div>
+		<!-- 暂未使用gif -->
+		<div id="lhgif" class="lhgif" style="display:"><img class="transparent_class" src="lh.gif"></div>
+		<div id="lhswfdiv" class="lhswfdiv"></div>
+		<br />
+		
+		<!--
+		<input type="button" id="start" value="start" onclick="start();"/>
+		<input type="button" id="stop" value="stop"/ onclick="stop();">
+		-->
+		
+		<div id="trace" class="trace"></div>
+		
+	</body>
+</html>

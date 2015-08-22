@@ -1,0 +1,64 @@
+﻿.bgcolor{
+	background-color: white;
+}
+.bg{
+	position:absolute;z-index:-1;width:100%;top:0px;left:0px;border:0;
+}
+.btns{
+	position:absolute;z-index:1;right:10px;top:10px;
+}
+.btn{
+	cursor:pointer;font-weight:bolder;color:orange;display:inline;
+}
+.content, .gx, .lhswfdiv, .lhgif{
+	position:absolute;z-index:3;text-align:center;margin:80px auto 0 auto;width:100%;
+}
+.gx{
+	font-size:50;
+}
+.lhgif,.lhswfdiv{
+	z-index:10;
+}
+.lhswfdiv{
+	margin:0 auto;
+}
+.lhgif{
+	margin:20px auto 0 auto;display:none;
+}
+.imagesDiv{
+	padding-top:100px;margin:0 auto;
+}
+.img{
+	height:400px;
+	border:2px solid #888888;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	box-shadow: 2px 2px 2px #888888;
+}
+.name{
+	font-family:'微软雅黑';
+	font-weight:bold;
+	color:black;
+}
+.hide{
+	display:none;
+}
+.trace{
+	color:white;overflow-y:scroll;
+}
+.transparent_class {  
+    /* older safari/Chrome browsers */  
+    -webkit-opacity: 0.7;  
+    /* Netscape and Older than Firefox 0.9 */  
+    -moz-opacity: 0.7;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/  
+    -khtml-opacity: 0.7;  
+    /* IE9 + etc...modern browsers */  
+    opacity: .7;  
+    /* IE 4-9 */  
+    filter:alpha(opacity=70);  
+    /*This works in IE 8 & 9 too*/  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";  
+    /*IE4-IE9*/  
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=70);  
+}
