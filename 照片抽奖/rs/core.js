@@ -132,7 +132,7 @@ function stop(){
 	if (useFlash ){
 		lhswfdiv.append(
 			"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"+
-			"	codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0' width='"+h+"' height='"+h+"'>"+
+			"	codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0' width='"+h+"' height='"+h+"'>"+
 			"	<param name='movie' value='"+(withSound?"lh.swf":"lh2.swf")+"'>"+
 			"	<param name='wmode' value='transparent'>"+
 			"	<param name='quality' value='high'>"+
@@ -149,10 +149,10 @@ function stop(){
 
 //随机切换图片
 function change() {
-	imageEs.eq(currentNumber).css("display","none");
-	var number = getNextNum();
-	imageEs.eq(number).css("display","inline");
-	currentNumber = number;
+	var oldCurrentNumber = currentNumber;
+	currentNumber = getNextNum();
+	imageEs.eq(oldCurrentNumber).css("display","none");
+	imageEs.eq(currentNumber).css("display","inline");
 }
 
 //获取随机数
