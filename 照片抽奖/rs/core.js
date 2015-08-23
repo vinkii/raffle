@@ -132,14 +132,14 @@ function stop(){
 	if (useFlash ){
 		lhswfdiv.append(
 			"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"+
-			"	codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0' width='"+h+"' height='"+h+"'>"+
-			"	<param name='movie' value='"+(withSound?"lh.swf":"lh2.swf")+"'>"+
+			"	codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0' width='"+w+"' height='"+h+"'>"+
+			"	<param name='movie' value='"+flashName+"'>"+
 			"	<param name='wmode' value='transparent'>"+
 			"	<param name='quality' value='high'>"+
 			"	<param name='allowFullScreen' value='true'/>"+ 
-			"	<embed src='"+(withSound?"lh.swf":"lh2.swf")+"' wmode='transparent'"+
+			"	<embed src='"+flashName+"' wmode='transparent'"+
 			"		quality='high' pluginspage='http://www.macromedia.com/go/getflashplayer'"+
-			"		type='application/x-shockwave-flash' width='"+h+"' height='"+h+"'>"+
+			"		type='application/x-shockwave-flash' width='"+w+"' height='"+h+"'>"+
 			"	</embed>"+
 			"</object>");
 	} else {
