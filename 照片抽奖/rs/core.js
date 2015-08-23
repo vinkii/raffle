@@ -136,11 +136,6 @@ function stop(){
 			"	<param name='movie' value='"+flashName+"'>"+
 			"	<param name='wmode' value='transparent'>"+
 			"	<param name='quality' value='high'>"+
-			"	<param name='allowFullScreen' value='true'/>"+ 
-			"	<embed src='"+flashName+"' wmode='transparent'"+
-			"		quality='high' pluginspage='http://www.macromedia.com/go/getflashplayer'"+
-			"		type='application/x-shockwave-flash' width='"+w+"' height='"+h+"'>"+
-			"	</embed>"+
 			"</object>");
 	} else {
 		lhgif.show();
