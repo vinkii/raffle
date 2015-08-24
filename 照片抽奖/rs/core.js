@@ -1,4 +1,10 @@
 ﻿var debug = false;
+var speed = 50;        //单位是毫秒,1秒=1000毫秒，1000/50=20，一秒钟展示20张照片
+var pgpath = document.location.href;
+var spath = pgpath.substr(0,pgpath.indexOf("/rs")).replace("file:///","") + "/img";
+var total=0, bgloaded = 0, phloaded=0, currentNumber=-1, firstRaffle = true;
+var imageEs = null, showed = null, sh = null, lhgif = null, lhswfdiv = null, gx = null;
+
 if (!debug){
 	//窗口全屏
 	while (true) {
@@ -12,14 +18,6 @@ if (!debug){
 } else {
 	var w = 1300, h = 500;
 }
-
-var pgpath = document.location.href;
-var spath = pgpath.substr(0,pgpath.indexOf("/rs")).replace("file:///","") + "/img";
-var bgloaded=0, imageEs, total=0, phloaded=0, currentNumber=-1;
-var speed = 50;        //单位是毫秒,1秒=1000毫秒，1000/50=20，一秒钟展示20张照片
-var showed = [];
-var sh = null;
-var lhgif = null, lhswfdiv = null, gx = null;
 
 //背景图片加载完会调用该方法
 function loadedbg(){
@@ -130,16 +128,24 @@ function stop(){
 	sh = null;
 	gx.html("恭喜<span style='color:white'>"+imageEs.eq(currentNumber).find("span[name='namespan']").html()+"</span>中奖");
 	if (useFlash ){
-		lhswfdiv.append(
+		if (firstRaffle){
+			setTimeout(showFlash, 10);
+		} else {
+			showFlash();
+		}
+	} else {
+		lhgif.show();
+	}
+}
+
+function showFlash(){
+	lhswfdiv.append(
 			"<object classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'"+
 			"	codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0' width='"+w+"' height='"+h+"'>"+
 			"	<param name='movie' value='"+flashName+"'>"+
 			"	<param name='wmode' value='transparent'>"+
 			"	<param name='quality' value='high'>"+
 			"</object>");
-	} else {
-		lhgif.show();
-	}
 }
 
 //随机切换图片
