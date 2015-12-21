@@ -65,7 +65,7 @@ function loadph(){
 
 function appendPhoto(p,name,name2){
 	$("#imagesDiv").append('<div name="ph" class="hide">'+
-						   '	<img src="' + p + '/' + name + '" class="img"/ onload="loadedph();">'+
+						   '	<img src="' + p + '/' + name + '" class="img" style="height:'+photoHeight+'px;" onload="loadedph();">'+
 						   '	<div class="name">'+
 						   '		<br/><span name="namespan">' + name2 + '</span>'+
 						   '	</div>'+
@@ -98,9 +98,9 @@ function start(){
 		$("#who").css("display","none");
 	} else {
 		gx.html("");
-		if (useFlash ){
+		if (useFlash){
 			$("#lhswfdiv").html("");
-		} else {
+		} else if(useGif) {
 			lhgif.hide();
 		}
 		imageEs.eq(currentNumber).remove();
@@ -126,14 +126,15 @@ function start(){
 function stop(){
 	clearInterval(sh);
 	sh = null;
-	gx.html("恭喜<span style='color:white'>"+imageEs.eq(currentNumber).find("span[name='namespan']").html()+"</span>中奖");
+	var name = imageEs.eq(currentNumber).find("span[name='namespan']").html();
+	gx.html("<span style='color:"+g_h_color+";'>"+gongxi + "</span><span style='color:"+g_h_name_color+";'>"+name+"</span>" + "<span style='color:"+g_h_color+";'>"+huodong+"</span>");
 	if (useFlash ){
 		if (firstRaffle){
 			setTimeout(showFlash, 10);
 		} else {
 			showFlash();
 		}
-	} else {
+	} else if(useGif) {
 		lhgif.show();
 	}
 }
@@ -190,6 +191,8 @@ onload=function(){
 		$("#bg").height(h);
 	}
 	gx=$("#gx");
+	$("#content").css("margin-top", photoMarginTop + "px");
+	$("#who").find("img").height(photoHeight);
 	lhgif = $("#lhgif");
 	lhgif.find("img").height(h-20);
 	lhswfdiv = $("#lhswfdiv");
